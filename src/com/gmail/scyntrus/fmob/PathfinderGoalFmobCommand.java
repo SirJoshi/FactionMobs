@@ -1,6 +1,6 @@
 package com.gmail.scyntrus.fmob;
 
-import net.minecraft.server.v1_14_R1.PathfinderGoal;
+import net.minecraft.server.v1_15_R1.PathfinderGoal;
 
 import java.util.EnumSet;
 

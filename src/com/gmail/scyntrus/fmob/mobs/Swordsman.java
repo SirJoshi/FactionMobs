@@ -11,34 +11,34 @@ import com.gmail.scyntrus.fmob.ReflectionManager;
 import com.gmail.scyntrus.fmob.Utils;
 import com.gmail.scyntrus.ifactions.Faction;
 import com.gmail.scyntrus.ifactions.FactionsManager;
-import net.minecraft.server.v1_14_R1.DamageSource;
-import net.minecraft.server.v1_14_R1.Entity;
-import net.minecraft.server.v1_14_R1.EntityCreature;
-import net.minecraft.server.v1_14_R1.EntityHuman;
-import net.minecraft.server.v1_14_R1.EntityLiving;
-import net.minecraft.server.v1_14_R1.EntityPlayer;
-import net.minecraft.server.v1_14_R1.EntityProjectile;
-import net.minecraft.server.v1_14_R1.EntitySkeleton;
-import net.minecraft.server.v1_14_R1.EntityTypes;
-import net.minecraft.server.v1_14_R1.EnumItemSlot;
-import net.minecraft.server.v1_14_R1.EnumMonsterType;
-import net.minecraft.server.v1_14_R1.GenericAttributes;
-import net.minecraft.server.v1_14_R1.IWorldReader;
-import net.minecraft.server.v1_14_R1.ItemStack;
-import net.minecraft.server.v1_14_R1.Items;
-import net.minecraft.server.v1_14_R1.MathHelper;
-import net.minecraft.server.v1_14_R1.NBTTagCompound;
-import net.minecraft.server.v1_14_R1.PathfinderGoalFloat;
-import net.minecraft.server.v1_14_R1.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_14_R1.PathfinderGoalMeleeAttack;
-import net.minecraft.server.v1_14_R1.PathfinderGoalMoveTowardsTarget;
-import net.minecraft.server.v1_14_R1.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_14_R1.PathfinderGoalRandomStroll;
-import net.minecraft.server.v1_14_R1.World;
+import net.minecraft.server.v1_15_R1.DamageSource;
+import net.minecraft.server.v1_15_R1.Entity;
+import net.minecraft.server.v1_15_R1.EntityCreature;
+import net.minecraft.server.v1_15_R1.EntityHuman;
+import net.minecraft.server.v1_15_R1.EntityLiving;
+import net.minecraft.server.v1_15_R1.EntityPlayer;
+import net.minecraft.server.v1_15_R1.EntityProjectile;
+import net.minecraft.server.v1_15_R1.EntitySkeleton;
+import net.minecraft.server.v1_15_R1.EntityTypes;
+import net.minecraft.server.v1_15_R1.EnumItemSlot;
+import net.minecraft.server.v1_15_R1.EnumMonsterType;
+import net.minecraft.server.v1_15_R1.GenericAttributes;
+import net.minecraft.server.v1_15_R1.IWorldReader;
+import net.minecraft.server.v1_15_R1.ItemStack;
+import net.minecraft.server.v1_15_R1.Items;
+import net.minecraft.server.v1_15_R1.MathHelper;
+import net.minecraft.server.v1_15_R1.NBTTagCompound;
+import net.minecraft.server.v1_15_R1.PathfinderGoalFloat;
+import net.minecraft.server.v1_15_R1.PathfinderGoalLookAtPlayer;
+import net.minecraft.server.v1_15_R1.PathfinderGoalMeleeAttack;
+import net.minecraft.server.v1_15_R1.PathfinderGoalMoveTowardsTarget;
+import net.minecraft.server.v1_15_R1.PathfinderGoalRandomLookaround;
+import net.minecraft.server.v1_15_R1.PathfinderGoalRandomStroll;
+import net.minecraft.server.v1_15_R1.World;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_14_R1.util.CraftChatMessage;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.util.CraftChatMessage;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 
@@ -88,7 +88,7 @@ public class Swordsman extends EntitySkeleton implements FactionMob {
         this.persistent = true;
         this.canPickUpLoot = false;
         this.setHealth(maxHp);
-        this.Q = 1.5F; // TODO: Update name on version change (E: Entity.stepHeight)
+        this.N = 1.5F; // TODO: Update name on version change (E: Entity.stepHeight)
         this.setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
         Utils.giveColorArmor(this);
         this.retargetTime = FactionMobs.random.nextInt(40);
@@ -141,8 +141,8 @@ public class Swordsman extends EntitySkeleton implements FactionMob {
             if (this.getGoalTarget() == null || !this.getGoalTarget().isAlive()) {
                 this.findTarget();
             } else {
-                double dist = Utils.dist3D(this.locX, this.getGoalTarget().locX, this.locY, this
-                        .getGoalTarget().locY, this.locZ, this.getGoalTarget().locZ);
+                double dist = Utils.dist3D(this.locX(), this.getGoalTarget().locX(), this.locY(), this
+                        .getGoalTarget().locY(), this.locZ(), this.getGoalTarget().locZ());
                 if (dist > range) {
                     this.findTarget();
                 } else if (dist > 4) {
@@ -160,18 +160,18 @@ public class Swordsman extends EntitySkeleton implements FactionMob {
                 } else if (this.command == Command.phome) {
                     this.getNavigation().a(p.set(this.spawnLoc.getX(), this.spawnLoc.getY(), this.spawnLoc
                             .getZ()), FactionMobs.mobPatrolSpeed);
-                    if (Utils.dist3D(this.locX, this.spawnLoc.getX(), this.locY, this.spawnLoc
-                            .getY(), this.locZ, this.spawnLoc.getZ()) < 1) {
+                    if (Utils.dist3D(this.locX(), this.spawnLoc.getX(), this.locY(), this.spawnLoc
+                            .getY(), this.locZ(), this.spawnLoc.getZ()) < 1) {
                         this.command = Command.ppoi;
                     }
                 } else if (this.command == Command.ppoi) {
                     this.getNavigation().a(p.set(poiX, poiY, poiZ), FactionMobs.mobPatrolSpeed);
-                    if (Utils.dist3D(this.locX, this.poiX, this.locY, this.poiY, this.locZ, this.poiZ) < 1) {
+                    if (Utils.dist3D(this.locX(), this.poiX, this.locY(), this.poiY, this.locZ(), this.poiZ) < 1) {
                         this.command = Command.phome;
                     }
                 } else if (this.command == Command.path) {
                     this.getNavigation().a(p.set(poiX, poiY, poiZ), 1.0);
-                    if (Utils.dist3D(this.locX, this.poiX, this.locY, this.poiY, this.locZ, this.poiZ) < 1) {
+                    if (Utils.dist3D(this.locX(), this.poiX, this.locY(), this.poiY, this.locZ(), this.poiZ) < 1) {
                         this.command = Command.home;
                     }
                 }
@@ -193,8 +193,8 @@ public class Swordsman extends EntitySkeleton implements FactionMob {
                     && this.attackedBy.world.getWorldData().getName().equals(this.world.getWorldData().getName())
                     && Utils.FactionCheck(this.attackedBy, this.faction, this.attackAll) < 1) {
                 double dist = Utils
-                        .dist3D(this.locX, this.attackedBy.locX, this.locY, this.attackedBy.locY, this.locZ,
-                                this.attackedBy.locZ);
+                        .dist3D(this.locX(), this.attackedBy.locX(), this.locY(), this.attackedBy.locY(), this.locZ(),
+                                this.attackedBy.locZ());
                 if (dist < 16) {
                     this.setTarget(this.attackedBy);
                     return this.attackedBy;
@@ -340,17 +340,17 @@ public class Swordsman extends EntitySkeleton implements FactionMob {
 
     @Override
     public double getlocX() {
-        return this.locX;
+        return this.locX();
     }
 
     @Override
     public double getlocY() {
-        return this.locY;
+        return this.locY();
     }
 
     @Override
     public double getlocZ() {
-        return this.locZ;
+        return this.locZ();
     }
 
     @Override
@@ -491,7 +491,7 @@ public class Swordsman extends EntitySkeleton implements FactionMob {
         if (this.getHealth() > 0) {
             this.dead = false;
         }
-        this.ai = false; //TODO: Update name on version change (E: Entity.inPortal)
+        this.af = false; //TODO: Update name on version change (E: Entity.inPortal)
         super.tick();
     }
 
