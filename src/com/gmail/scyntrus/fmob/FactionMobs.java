@@ -371,7 +371,7 @@ public class FactionMobs extends JavaPlugin {
             if (fmob.getFaction() == null || fmob.getFaction().isNone()) {
                 continue;
             }
-            List<String> mobData = new ArrayList<String>(13);
+            List<String> mobData = new ArrayList<String>(20);
             mobData.add(fmob.getTypeName()); //0
             Location spawnLoc = fmob.getSpawn();
             mobData.add(spawnLoc.getWorld().getName()); //1
