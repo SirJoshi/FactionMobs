@@ -134,10 +134,5 @@
             <!-- http://repo.md-5.net/content/groups/public/LibsDisguises/LibsDisguises/ -->
             <url>http://repo.md-5.net/content/groups/public/</url>
         </repository>
-        <repository>
-            <id>bstats-repo</id>
-            <!-- http://repo.bstats.org/content/repositories/releases/org/bstats/bstats-bukkit/ -->
-            <url>http://repo.bstats.org/content/repositories/releases/</url>
-        </repository>
     </repositories>
 </project>
