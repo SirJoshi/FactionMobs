@@ -8,15 +8,14 @@ import com.gmail.scyntrus.fmob.mobs.Titan;
 import com.gmail.scyntrus.ifactions.Faction;
 import com.gmail.scyntrus.ifactions.FactionsManager;
 import com.gmail.scyntrus.ifactions.Rank;
-import net.minecraft.server.v1_14_R1.BlockPosition;
-import net.minecraft.server.v1_14_R1.Entity;
-import net.minecraft.server.v1_14_R1.EntityPositionTypes;
-import net.minecraft.server.v1_14_R1.EntityTypes;
-import net.minecraft.server.v1_14_R1.EnumMobSpawn;
-import net.minecraft.server.v1_14_R1.GeneratorAccess;
-import net.minecraft.server.v1_14_R1.HeightMap.Type;
-import net.minecraft.server.v1_14_R1.IRegistry;
-import org.bstats.bukkit.Metrics;
+import net.minecraft.server.v1_15_R1.BlockPosition;
+import net.minecraft.server.v1_15_R1.Entity;
+import net.minecraft.server.v1_15_R1.EntityPositionTypes;
+import net.minecraft.server.v1_15_R1.EntityTypes;
+import net.minecraft.server.v1_15_R1.EnumMobSpawn;
+import net.minecraft.server.v1_15_R1.GeneratorAccess;
+import net.minecraft.server.v1_15_R1.HeightMap.Type;
+import net.minecraft.server.v1_15_R1.IRegistry;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -44,7 +43,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import static net.minecraft.server.v1_14_R1.EnumCreatureType.MONSTER;
+import static net.minecraft.server.v1_15_R1.EnumCreatureType.MONSTER;
 
 public class FactionMobs extends JavaPlugin {
 
@@ -229,14 +228,6 @@ public class FactionMobs extends JavaPlugin {
 
         chunkMobLoadTask = this.getServer().getScheduler()
                 .scheduleSyncRepeatingTask(this, new ChunkMobLoader(this), 4, 4);
-
-        Metrics metrics = new Metrics(this);
-        metrics.addCustomChart(new Metrics.SimplePie("team_plugin", new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return FactionsManager.getVersionString();
-            }
-        }));
     }
 
     public static boolean dummySpawnCheck(EntityTypes entitytypes, GeneratorAccess generatoraccess,
@@ -244,12 +235,13 @@ public class FactionMobs extends JavaPlugin {
         return false;
     }
 
-    private <T extends net.minecraft.server.v1_14_R1.Entity> void addEntityType(String entityName,
+    private <T extends net.minecraft.server.v1_15_R1.Entity> void addEntityType(String entityName,
                                                                                 EntityTypes.b<T> ctor, float width,
                                                                                 float height)
             throws InvocationTargetException, IllegalAccessException {
         entityName = entityName.toLowerCase();
-        EntityTypes.a<Entity> entitytypes_a = EntityTypes.a.a(ctor, MONSTER) //TODO: Update name on version change
+        //TODO: Update name on version change
+        EntityTypes.a<Entity> entitytypes_a = EntityTypes.a.a(ctor, MONSTER) 
                 .a() // ???
                 .b() // disable data fixer
                 // .c() is fireproof
@@ -356,7 +348,7 @@ public class FactionMobs extends JavaPlugin {
                     }
                 }
 
-                newMob.getEntity().world.addEntity((net.minecraft.server.v1_14_R1.Entity) newMob, SpawnReason.CUSTOM);
+                newMob.getEntity().world.addEntity((net.minecraft.server.v1_15_R1.Entity) newMob, SpawnReason.CUSTOM);
                 mobList.add(newMob);
                 newMob.getEntity().dead = false;
             }
@@ -379,7 +371,7 @@ public class FactionMobs extends JavaPlugin {
             if (fmob.getFaction() == null || fmob.getFaction().isNone()) {
                 continue;
             }
-            List<String> mobData = new ArrayList<String>(13);
+            List<String> mobData = new ArrayList<String>(20);
             mobData.add(fmob.getTypeName()); //0
             Location spawnLoc = fmob.getSpawn();
             mobData.add(spawnLoc.getWorld().getName()); //1

@@ -11,14 +11,14 @@ public class VersionManager {
     }
 
     public static void checkVersion() throws VersionException {
-        if (Package.getPackage("org.bukkit.craftbukkit.v1_14_R1") != null) {
+        if (Package.getPackage("org.bukkit.craftbukkit.v1_15_R1") != null) {
             return;
         }
 
         try {
             Class<?> tmpMcpcClass = Class.forName("za.co.mcportcentral.entity.CraftCustomEntity");
             if (tmpMcpcClass != null) {
-                if (tmpMcpcClass.getResourceAsStream("/mappings/v1_14_R1/cb2numpkg.srg") != null) {
+                if (tmpMcpcClass.getResourceAsStream("/mappings/v1_15_R1/cb2numpkg.srg") != null) {
                     ErrorManager.handleError("[FactionMobs] MCPC detected. MCPC compatibility is experimental.");
                 } else {
                     ErrorManager
@@ -39,6 +39,6 @@ public class VersionManager {
         }
 
         throw new VersionException(
-                "You are running an unsupported version of CraftBukkit (Requires: v1_14_R1, Found:" + foundVersion + "). Please download a newer version. FactionMobs will not be enabled.");
+                "You are running an unsupported version of CraftBukkit (Requires: v1_15_R1, Found:" + foundVersion + "). Please download a newer version. FactionMobs will not be enabled.");
     }
 }

@@ -1,10 +1,10 @@
 package com.gmail.scyntrus.fmob;
 
-import net.minecraft.server.v1_14_R1.AxisAlignedBB;
-import net.minecraft.server.v1_14_R1.Entity;
-import net.minecraft.server.v1_14_R1.EntityTypes;
-import net.minecraft.server.v1_14_R1.NBTTagCompound;
-import net.minecraft.server.v1_14_R1.Packet;
+import net.minecraft.server.v1_15_R1.AxisAlignedBB;
+import net.minecraft.server.v1_15_R1.Entity;
+import net.minecraft.server.v1_15_R1.EntityTypes;
+import net.minecraft.server.v1_15_R1.NBTTagCompound;
+import net.minecraft.server.v1_15_R1.Packet;
 
 public class PathHelpEntity extends Entity {
 
@@ -13,19 +13,17 @@ public class PathHelpEntity extends Entity {
     }
 
     public PathHelpEntity set(double x, double y, double z) {
-        this.locX = x;
-        this.locY = y;
-        this.locZ = z;
+        this.setPositionRaw(x,y,z);
         return this;
     }
 
     @Override
     public AxisAlignedBB getBoundingBox() {
-        return new AxisAlignedBB(this.locX, this.locY, this.locZ, this.locX, this.locY, this.locZ);
+        return new AxisAlignedBB(this.locX(), this.locY(), this.locZ(), this.locX(), this.locY(), this.locZ());
     }
 
     @Override
-    public Packet<?> N() {
+    public Packet<?> L() {
         return null;
     }
 

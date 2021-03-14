@@ -4,15 +4,15 @@ import com.gmail.scyntrus.fmob.Messages.Message;
 import com.gmail.scyntrus.fmob.mobs.Titan;
 import com.gmail.scyntrus.ifactions.Faction;
 import com.gmail.scyntrus.ifactions.FactionsManager;
-import net.minecraft.server.v1_14_R1.Entity;
-import net.minecraft.server.v1_14_R1.EntityInsentient;
-import net.minecraft.server.v1_14_R1.EntityIronGolem;
-import net.minecraft.server.v1_14_R1.EntityLiving;
-import net.minecraft.server.v1_14_R1.EntityWolf;
+import net.minecraft.server.v1_15_R1.Entity;
+import net.minecraft.server.v1_15_R1.EntityInsentient;
+import net.minecraft.server.v1_15_R1.EntityIronGolem;
+import net.minecraft.server.v1_15_R1.EntityLiving;
+import net.minecraft.server.v1_15_R1.EntityWolf;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftExperienceOrb;
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftExperienceOrb;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -164,8 +164,8 @@ public class EntityListener implements Listener {
                 ItemStack item = new ItemStack(fmob.getDrops());
                 e.getDrops().add(item);
             }
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> plugin.updateList(), 1L);
         }
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> plugin.updateList(), 1L);
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

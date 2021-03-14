@@ -2,24 +2,24 @@ package com.gmail.scyntrus.fmob;
 
 import com.gmail.scyntrus.ifactions.Faction;
 import com.gmail.scyntrus.ifactions.FactionsManager;
-import net.minecraft.server.v1_14_R1.Chunk;
-import net.minecraft.server.v1_14_R1.Entity;
-import net.minecraft.server.v1_14_R1.EntityAnimal;
-import net.minecraft.server.v1_14_R1.EntityCreeper;
-import net.minecraft.server.v1_14_R1.EntityLiving;
-import net.minecraft.server.v1_14_R1.EntityPlayer;
-import net.minecraft.server.v1_14_R1.EntitySlime;
-import net.minecraft.server.v1_14_R1.EntityWolf;
-import net.minecraft.server.v1_14_R1.EnumItemSlot;
-import net.minecraft.server.v1_14_R1.IMonster;
-import net.minecraft.server.v1_14_R1.ItemStack;
-import net.minecraft.server.v1_14_R1.Items;
-import net.minecraft.server.v1_14_R1.MathHelper;
-import net.minecraft.server.v1_14_R1.NBTTagCompound;
-import net.minecraft.server.v1_14_R1.WorldServer;
+import net.minecraft.server.v1_15_R1.Chunk;
+import net.minecraft.server.v1_15_R1.Entity;
+import net.minecraft.server.v1_15_R1.EntityAnimal;
+import net.minecraft.server.v1_15_R1.EntityCreeper;
+import net.minecraft.server.v1_15_R1.EntityLiving;
+import net.minecraft.server.v1_15_R1.EntityPlayer;
+import net.minecraft.server.v1_15_R1.EntitySlime;
+import net.minecraft.server.v1_15_R1.EntityWolf;
+import net.minecraft.server.v1_15_R1.EnumItemSlot;
+import net.minecraft.server.v1_15_R1.IMonster;
+import net.minecraft.server.v1_15_R1.ItemStack;
+import net.minecraft.server.v1_15_R1.Items;
+import net.minecraft.server.v1_15_R1.MathHelper;
+import net.minecraft.server.v1_15_R1.NBTTagCompound;
+import net.minecraft.server.v1_15_R1.WorldServer;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -205,9 +205,9 @@ public class Utils {
                                                      double range2, boolean attackAll) {
         for (Entity entity1 : slice) {
             if (entity1.isAlive() && entity1 instanceof EntityLiving) {
-                double tempRange2 = (entity1.locX - x) * (entity1.locX - x)
-                        + (entity1.locY - y) * (entity1.locY - y)
-                        + (entity1.locZ - z) * (entity1.locZ - z);
+                double tempRange2 = (entity1.locX() - x) * (entity1.locX() - x)
+                        + (entity1.locY() - y) * (entity1.locY() - y)
+                        + (entity1.locZ() - z) * (entity1.locZ() - z);
                 if (tempRange2 < range2 && Utils.FactionCheck((EntityLiving) entity1, faction, attackAll) == -1) {
                     if (entity.hasLineOfSight(entity1)) {
                         range2 = tempRange2;
@@ -324,8 +324,8 @@ public class Utils {
                             Faction otherFaction = fmob.getFaction();
                             if (faction.getRelationTo(otherFaction) == 1 && Utils
                                     .FactionCheck(damager, otherFaction, true) < 1
-                                    && (entity1.locX - x) * (entity1.locX - x) + (entity1.locY - y) * (entity1.locY - y)
-                                    + (entity1.locZ - z) * (entity1.locZ - z) < range2) {
+                                    && (entity1.locX() - x) * (entity1.locX() - x) + (entity1.locY() - y) * (entity1.locY() - y)
+                                    + (entity1.locZ() - z) * (entity1.locZ() - z) < range2) {
                                 fmob.softAgro(damager);
                             }
                         }
